@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Gilroy-Extrabold';
+  src: url('../public/font/Gilroy-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy-light';
+  src: url('../public/font/Gilroy-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: url('../public/font/Gilroy-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Semibold';
+  src: url('../public/font/Gilroy-SemiBold.ttf') format('truetype');
+}
+
+.extrabold {
+  font-family:  'Gilroy-Extrabold','Questrial', sans-serif;
+}
+
+.light{
+  font-family:  'Gilroy-light','Questrial', sans-serif;
+}
+
+.medium{
+  font-family:  'Gilroy-Medium','Questrial', sans-serif;
+}
+
+.semibold{
+  font-family:  'Gilroy-Semibold','Questrial', sans-serif;
+}
