@@ -6,11 +6,7 @@ import {FaCircleUser} from 'react-icons/fa6'
 
 
 function Header(){
-  const navigate = useNavigate() 
-  
-//   const handleprofile=()=>{
-//     navigate('/profile')
-//   }
+
 
     return(    
       

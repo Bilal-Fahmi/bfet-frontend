@@ -1,0 +1,16 @@
+.circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    border-radius: 24px;
+    background-color: black;
+    color:white;
+    text-align:center;
+    font-size:55px;
+    position: absolute;
+    top:0;
+    left:0
+}
+

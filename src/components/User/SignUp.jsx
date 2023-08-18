@@ -1,33 +1,68 @@
-import { Link,useNavigate } from "react-router-dom"
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import React, { useState } from "react"
-
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { validationSchema } from "../../schema";
+import { apiInstance } from "../../axiosInstance/Instance";
 
 function Signup() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [pwd, setPwd] = useState('')
-  const [confirmpwd, setConfirmpwd] = useState('')
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem('token')) {  
+      navigate('/profile')
+    } else {
+      navigate('/signup')
+    }
+  },[])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (values, actions) => {
     try {
-      const response = await axios.post('http://localhost:8000/signup',{name,email,password:pwd,confirmpassword:confirmpwd})
-      if (response.data.success) {
-        toast.success(response.data.success)
-        const sent = {name,email}
-        navigate('/verify-email', {state:sent})
+      const response = await apiInstance.post("/signup", values);
+      if (response.status === 200) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        actions.resetForm();
+        if (response.data.sucess) {
+          navigate("/login");
+        }
+        
       } else {
-        toast.error(response.data.error)
+        throw new Error("Failed to connect to the backend server");
       }
     } catch (error) {
-      toast.error(error.message)
+      console.log(error);
     }
-  }
+  };
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmpassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit,
+  });
 
-  
+  let message;
+  if (touched.name && errors?.name) {
+    message = errors.name.message
+    }
+  else if (touched.email && errors?.email) {
+    message = errors.email
+    } 
+  else if (touched.password && errors?.password) {
+    message = errors.password
+    }
+  else if (touched.confirmpassword && errors?.confirmpassword) {
+    message = errors.confirmpassword
+    }
 
 
   return (
@@ -36,53 +71,93 @@ function Signup() {
       <form className="w-72 p-4 rounded" onSubmit={handleSubmit}>
         <div className="mb-4">
           <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
             type="text"
             placeholder="name"
-            className="w-72 px-3 py-2 rounded border light border-gray-300 focus:outline-none"
+            className={`
+              w-72 px-3 py-2 rounded border light outline-none 
+              ${
+                errors.name && touched.name
+                  ? "border-red-600"
+                  : "border-gray-300"
+              }
+            `}
           />
         </div>
         <div className="mb-4">
           <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
             type="email"
             placeholder="email"
-            className="w-72 px-3 py-2 rounded border light border-gray-300 focus:outline-none"
+            className={`
+            w-72 px-3 py-2 rounded border light outline-none 
+            ${
+              errors.email && touched.email
+                ? "border-red-600"
+                : "border-gray-300"
+            }
+          `}
           />
         </div>
         <div className="mb-4">
           <input
-            value={pwd}
-            onChange={(e) => setPwd(e.target.value)}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
             type="password"
             placeholder="password"
-            className="w-72 px-3 py-2 rounded border light border-gray-300 focus:outline-none"
+            className={`
+            w-72 px-3 py-2 rounded border light outline-none 
+            ${
+              errors.password && touched.password
+                ? "border-red-600"
+                : "border-gray-300"
+            }
+          `}
           />
         </div>
         <div className="mb-4">
           <input
-            value={confirmpwd}
-            onChange={(e) => setConfirmpwd(e.target.value)}
+            name="confirmpassword"
+            value={values.confirmpassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
             type="password"
             placeholder="confirm password"
-            className="w-72 px-3 py-2 rounded border light border-gray-300 focus:outline-none"
+            className={`
+            w-72 px-3 py-2 rounded border light outline-none 
+            ${
+              errors.confirmpassword && touched.confirmpassword
+                ? "border-red-600"
+                : "border-gray-300"
+            }
+          `}
           />
+          {message && <p className="text-red-600 light">{message}</p>}
         </div>
         <button
-        
+          disabled={isSubmitting}
           type="submit"
-          className="w-72 py-2 px-4  bg-black text-white bold rounded hover:bg-gray-800 focus:outline-none"
+          className={`w-72 py-2 px-4  bg-black text-white semibold rounded hover:bg-gray-800 focus:outline-none
+            ${isSubmitting ? "opacity-35" : ""}`}
         >
           Create
         </button>
       </form>
       <div className="ml-4">
-        <Link to="/login" className="underline mr-1 light">Already have an account?</Link>
+        <Link to="/login" className="underline mr-1 light">
+          Already have an account?
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default Signup
+export default Signup;
