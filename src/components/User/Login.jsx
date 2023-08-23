@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema";
 import { apiInstance } from "../../axiosInstance/Instance";
+import { useDispatch } from "react-redux";
+import { login } from "../../Slice/UserSlice";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,14 +18,17 @@ function Login() {
       navigate("/profile");
     }
   }, []);
+  const dispatch = useDispatch();
   const onSubmit = async (values, actions) => {
     try {
       const response = await apiInstance.post("/login", values);
-
       if (response.data.success) {
+        dispatch(
+          login(response.data.user)
+        );
         navigate("/profile");
         toast.success(response.data.success);
-        console.log(response);
+   
         const { token } = response.data;
         if (token) {
           localStorage.setItem("token", token);

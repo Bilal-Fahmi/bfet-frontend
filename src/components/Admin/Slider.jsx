@@ -26,7 +26,7 @@ const links = [
   { name: "Home", to: "/admin/dashboard", id: 1 },
   { name: "Users", to: "/admin/users", id: 2 },
   { name: "Experts", to: "/admin/experts", id: 3 },
-  { name: "Slots", to: "/admin/slots", id: 4 },
+  { name: "Kyc", to: "/admin/kyc-requests", id: 4 },
 ];
 const Slider = () => {
   const [open, cycleOpen] = useCycle(false, true);

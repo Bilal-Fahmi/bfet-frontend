@@ -20,9 +20,7 @@ function UsersView() {
           }));
           setData(usersWithSerialNo);
         });
-
       console.log(response);
-
       if (!response) throw new Error("users not found");
     } catch (error) {
       console.log(error);
@@ -37,10 +35,10 @@ function UsersView() {
       });
       console.log(res);
       if (res.data.success) {
-        const updatedData = data.map((user) => 
+        const updatedData = data.map((user) =>
           user._id === userId ? { ...user, iSBlock: newStatus } : user
         );
-        setData(updatedData)
+        setData(updatedData);
       }
     } catch (error) {
       console.log(error);
