@@ -42,23 +42,24 @@ function Profile() {
    
 
   return (
-    <div>
+    <div >
       <h1 className="text-xl semibold mt-10 mb-3">My Account</h1>
       <div className="flex ">
-        <h2 className="light">Welcome {userData?.name} !</h2>
+        <h2 className="light flex-auto">Welcome {userData?.name}!</h2>
         <button
           className="underline light ml-2 text-sm "
           onClick={handlelogout}
         >
           logout
-              </button>
-              <Link to="/form" className="ml-2 light">
-          <button className="bg-black text-white px-4 py-2 rounded">
+        </button>
+        
+              <Link to="/form" className=" light  ">
+          <button  className=" bg-black text-white px-4 py-2 rounded">
             Become an Expert
           </button>
         </Link>
               
-      </div>
+        </div>
     </div>
   );
 }

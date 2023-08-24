@@ -33,17 +33,16 @@ function Form() {
           },
         }
       );
-      if (res.data) {
-        toast.success(res.data.message);
-        console.log(res.data);
+      if (res.data?.success) {
+        toast.success(res.data.success);
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         setFile(null);
         setIsSubmitting(false);
       } else {
-        toast.error(res.data.message);
-        console.log(res.data.message);
+        toast.error(res.data.error);
+
         throw new Error("Failed to connect to the backend server");
       }
     } catch (error) {
