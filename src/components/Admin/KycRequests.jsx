@@ -9,7 +9,7 @@ function KycRequests() {
   }, []);
   const fetchData = async () => {
     try {
-      const res = await apiInstance.get("/admin/kyc-requests").then((res) => {
+      const res = await apiInstance.post("/admin/kyc-requests").then((res) => {
         const SerialNo = res.data.user.map((users, index) => ({
           ...users,
           serialNo: index + 1,

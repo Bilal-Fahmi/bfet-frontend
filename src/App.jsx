@@ -41,7 +41,7 @@ function App() {
         </Route>
 
         {/* <Route element={<PrivateRoutes />}> */}
-          <Route path="kyc" element={<MeetPage />} />
+          <Route path="verification" element={<MeetPage />} />
         {/* </Route> */}
 
         <Route path="/admin" element={<AdminLayout />}>
