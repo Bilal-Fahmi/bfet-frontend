@@ -55,10 +55,6 @@ function UsersView() {
       selector: (row) => row.email,
     },
     {
-      name: "Id",
-      selector: (row) => row._id,
-    },
-    {
       name: "Status",
       cell: (row) => (
         <div className="flex items-center">
