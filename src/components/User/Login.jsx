@@ -6,29 +6,40 @@ import { loginSchema } from "../../schema";
 import { apiInstance } from "../../axiosInstance/Instance";
 import { useDispatch } from "react-redux";
 import { login } from "../../Slice/UserSlice";
+import jwtDecode from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  let decodedToken = null;
+  if (token) {
+    decodedToken = jwtDecode(token);
+  }
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      console.log(token);
-      navigate("/profile");
+    if (decodedToken) {
+      if (decodedToken.role === "user") {
+        navigate("/profile");
+      } else if (decodedToken.role === "expert") {
+        navigate("/expert-dashboard");
+      }
     }
   }, []);
-  const dispatch = useDispatch();
+  
   const onSubmit = async (values, actions) => {
     try {
       const response = await apiInstance.post("/login", values);
       if (response.data.success) {
-        dispatch(
-          login(response.data.user)
-        );
-        navigate("/profile");
-        toast.success(response.data.success);
-   
+        dispatch(login(response.data.user));
+        if (response.data.user.role === "expert") {
+          navigate("/expert-dashboard");
+          toast.success(response.data.success);
+        } else {
+          navigate("/profile");
+          toast.success(response.data.success);
+        }
+
         const { token } = response.data;
         if (token) {
           localStorage.setItem("token", token);

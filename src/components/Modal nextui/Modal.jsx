@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 
-export default function Model({passSize,headerText,body,onRoleUpdate}) {
+export default function ModalUi({passSize,headerText,body,onRoleUpdate}) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState(passSize)
 
