@@ -7,8 +7,8 @@ import MindHeader from "../User/MindHeader";
 
 function MindLayout() {
   return (
-    <div className="min-h-screen flex flex-col justify-between cursor-none">
-      <Toaster position="top-center" reverseOrder={false} />
+    <div className="min-h-screen flex flex-col justify-between ">
+      <Toaster position="top-center" reverseOrder={false} className="light" />
       <MindHeader/>
       <main className="flex h-screen ">
         <Slider />
@@ -17,7 +17,7 @@ function MindLayout() {
         </div>
       </main>
       <Footer />
-      <Cursor  />
+      {/* <Cursor  />  */}
     </div>
   );
 }

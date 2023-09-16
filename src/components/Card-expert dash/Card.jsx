@@ -13,6 +13,7 @@ import { apiInstance } from "../../axiosInstance/Instance";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../Slice/UserSlice";
 
 export default function CardUi({ name, option, description }) {
   const token = localStorage.getItem("token");
@@ -31,6 +32,13 @@ export default function CardUi({ name, option, description }) {
   //     console.log(error);
   //   }
   // };
+  const handleOnSlots = () => {
+    try {
+      navigate("/expert-slots")
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const handleLogout = () => {
     try {
       navigate("/login");
@@ -91,6 +99,9 @@ export default function CardUi({ name, option, description }) {
             Create Blog
           </Button>
         </Link>
+        <Button className="light" variant="flat" onClick={handleOnSlots}>
+            Slots
+          </Button>
         {/* <Link
           isExternal
           showAnchorIcon

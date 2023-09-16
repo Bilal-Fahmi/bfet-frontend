@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import Card from "../Card/Card";
+import Card from "../Card-expert dash/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { apiInstance } from "../../axiosInstance/Instance";
-import { logout } from "../../Slice/UserSlice";
 import jwtDecode from "jwt-decode";
 
 

@@ -99,11 +99,11 @@ export default function CreateBlog() {
         />
         <ReactQuill
           theme="snow"
-          className="light"
+          className="light h-[300px]"
           value={content}
           modules={modules}
           formats={formats}
-          onChange={newValue=>setContent(newValue)}
+          onChange={newValue => setContent(newValue)}
         />
         <Button type="submit" variant="flat" className="light">
           Create Blog
