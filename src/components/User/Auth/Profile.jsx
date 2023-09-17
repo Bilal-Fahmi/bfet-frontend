@@ -95,7 +95,8 @@ function Profile() {
           Visit source code on GitHub.
         </Link> */}
       </CardFooter>
-    </Card>
+      </Card>
+      <Link to="/payment">Pay</Link>
     </div>
   );
 }

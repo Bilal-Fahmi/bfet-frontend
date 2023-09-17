@@ -1,44 +1,30 @@
-import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import { apiInstance } from "../../../axiosInstance/Instance";
-import CheckoutForm from "./CheckoutForm";
-import { Elements } from "@stripe/react-stripe-js";
+import jwtDecode from "jwt-decode";
 
 export default function Payment() {
-  const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecert, setClientSecert] = useState("");
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+
   useEffect(() => {
-    fetchStripeKey();
-    fetchpayemnetIntent();
+    fetchCheckoutSession();
+    // fetchpayemnetIntent();
   }, []);
-  const fetchStripeKey = async () => {
+
+  const fetchCheckoutSession = async () => {
     try {
-      const res = await apiInstance.get("/stripe-key");
-      if (res?.data.publishableKey) {
-        // console.log(res?.data.publishableKey);
-        setStripePromise(res.data.publishableKey);
-      }
+      const res = await apiInstance.post(
+        `/subscription-checkout-session/${decodedToken?._id}`
+      );
+      window.location = res.data.session.url;
+      //   if (res.data?.session.url) {
+      //     window.location = session.url;
+      //   }
     } catch (error) {
       console.log(error);
     }
   };
-  const fetchpayemnetIntent = async () => {
-    try {
-      const res = await apiInstance.get("/sec-key");
-      console.log(res?.data.secKey);
-      setClientSecert(res?.data.secKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  return (
-    <div>
-      {stripePromise &&
-        clientSecert(
-          <Elements stripe={stripePromise} options={{clientSecret}}>
-            <CheckoutForm />
-          </Elements>
-        )}
-    </div>
-  );
+    return (
+        <div>Pls wait</div>
+    )
 }

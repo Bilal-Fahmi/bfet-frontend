@@ -41,6 +41,8 @@ import HomeLayout from "./components/Layout/HomeLayout";
 import MindLayout from "./components/Layout/MindLayout";
 import BodyLayout from "./components/Layout/BodyLayout";
 import Payment from "./components/User/Stripe Payment/Payment";
+import PaymentSuccess from "./components/User/Stripe Payment/PaymentSuccess";
+import PaymentCancel from "./components/User/Stripe Payment/PaymentCancel";
 
 function App() {
   const user = useSelector(selectUser);
@@ -65,7 +67,9 @@ function App() {
               <Route path="blog/:id" element={<BlogPage />} />
               <Route path="expert-slots" element={<Slots />} />
               <Route path="booking-page/:id" element={<BookingPage />} />
-              <Route path="/payment" element={<Payment/> } />
+              <Route path="payment" element={<Payment />} />
+              <Route path="success" element={<PaymentSuccess />} />
+              <Route path="cancel" element={<PaymentCancel />} />
             </Route>
           </Route>
 
