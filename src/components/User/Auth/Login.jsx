@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { loginSchema } from "../../schema";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { loginSchema } from "../../../schema";
+import { apiInstance } from "../../../axiosInstance/Instance";
 import { useDispatch } from "react-redux";
-import { login } from "../../Slice/UserSlice";
+import { login } from "../../../Slice/UserSlice";
 import jwtDecode from "jwt-decode";
 
 function Login() {

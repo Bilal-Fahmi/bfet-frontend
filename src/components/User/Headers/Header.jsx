@@ -13,35 +13,32 @@ function Header() {
     decodedToken = jwtDecode(token);
   }
 
-
-  // const decodedToken = jwtDecode(token);
-
   const handleOnClick = () => {
-      if (!token) {
-        nav("/login");
-      } else if (decodedToken) {
-        if (decodedToken.role === "user") {
-          nav("/profile");
-        } else if (decodedToken.role === "expert") {
-          nav("/expert-dashboard");
-        }
+    if (!token) {
+      nav("/login");
+    } else if (decodedToken) {
+      if (decodedToken.role === "user") {
+        nav("/profile");
+      } else if (decodedToken.role === "expert") {
+        nav("/expert-dashboard");
       }
+    }
   };
 
   return (
     <div className="flex flex-row">
       {/* Left section */}
       <div className=" grow  bg-[#5AA17F] bg-opacity-10 flex items-center ml-auto extrabold ">
-        <h1 className="pt-3 pb-3 text-3xl bold ml-auto" to="/">
+        <a href="/" className="pt-3 pb-3 text-3xl bold ml-auto" >
           b`
-        </h1>
+        </a>
       </div>
 
       {/* Right section */}
       <div className="flex flex-grow bg-[#FF793B] bg-opacity-10  items-center ml-auto extrabold">
-        <h1 className="text-3xl bold  " to="/">
+        <a href="/" className="text-3xl bold  " >
           fet
-        </h1>
+        </a>
 
         <Button
           isIconOnly

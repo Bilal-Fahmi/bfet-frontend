@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { apiInstance } from "../../../axiosInstance/Instance";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const turncatText = (text, maxLength) => {
 };
 export default function Blogs() {
   const [blog, setBlog] = useState([]);
+   const [expName, setExpName] = useState();
   const nav = useNavigate("");
   const handleOnClick = (_id) => {
     try {
@@ -62,7 +63,7 @@ export default function Blogs() {
           <CardFooter className="text-small medium justify-between">
             <b>{blog.title}</b>
             <p className="text-default-500 light">
-              {format(new Date(blog.createdAt), "MMM d,yyyy HH:mm")}
+              {format(new Date(blog.createdAt), "MMM d,yyyy hh:mm a")}
             </p>
           </CardFooter>
           <CardFooter>

@@ -71,7 +71,7 @@ function UsersView() {
   ];
 
   return (
-    <div className="light p-5">
+    <div className="semibold p-8 w-full">
       <DataTables columns={columns} data={data} />
     </div>
   );

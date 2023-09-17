@@ -29,7 +29,8 @@ export default function ExpertDash() {
  
 console.log(userData);
   return (
-    <div>
+    <div className=" p-5 flex flex-row w-full relative justify-center">
+      <h1 className="extrabold text-3xl absolute left-10">My Account.</h1>
       <Card
         name={userData?.name}
         option={userData?.selectedOption}

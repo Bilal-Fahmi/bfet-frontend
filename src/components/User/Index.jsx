@@ -11,7 +11,7 @@ function Index() {
                     backgroundSize:'cover'
                 }}>Fit Mind</Link>
 
-                <Link className="text-white flex items-center justify-center text-center text-4xl extrabold" style={{
+                <Link to="/body/fitbody" className="text-white flex items-center justify-center text-center text-4xl extrabold" style={{
                     background: 'linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(/pic/fitbody.jpg) ',
                     backgroundPosition: 'center',
                     backgroundSize:'cover'

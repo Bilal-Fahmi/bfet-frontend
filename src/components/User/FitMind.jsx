@@ -36,12 +36,13 @@ export default function FitMind() {
   return (
     <div className=" flex flex-row mr-auto p-10 ">
       <h1 className="extrabold mr-10 text-2xl text-[#5AA17F]">
-        Talk to an Expert.
+        Talk <br /> to an <br/>Expert.
       </h1>
       {expertData.map((expert, index) => (
+        <div key={index}>
         <Card
           isFooterBlurred
-          className="w-full h-[200px] col-span-12 sm:col-span-5 "
+          className="w-full h-[250px] col-span-12 sm:col-span-5 "
         >
           <CardHeader className="absolute z-10 top-1 flex-col items-start">
             {/* <p className="text-tiny text-black/60 uppercase font-bold">New </p> */}
@@ -49,7 +50,7 @@ export default function FitMind() {
               {expert.name}
             </h4>
           </CardHeader>
-          <Image
+            <Image
             removeWrapper
             alt="Card example background"
             className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
@@ -57,21 +58,24 @@ export default function FitMind() {
           />
           <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
             <div>
-              <p className="text-white semibold rounded p-1    bg-[#5AA17F] bg-opacity-50 text-tiny">
+              <p className="text-white semibold rounded p-1    bg-[#5AA17F] bg-opacity-50 text-md">
                 {expert.selectedOption}
               </p>
               {/* <p className="text-black text-tiny">Get notified.</p> */}
             </div>
-            <Button
-              className="text-tiny bg-black text-white light"
+              <Button
+              
+              className="text-tiny bg-orange-200  text-black text-md semibold"
               radius="full"
-              size="sm"
-              onClick={handleOnBook(expert._id)}
+                size="sm"
+                variant="flat"
+              onClick={()=>handleOnBook(expert._id)}
             >
               Book
             </Button>
           </CardFooter>
-        </Card>
+          </Card>
+          </div>
       ))}
      
     </div>

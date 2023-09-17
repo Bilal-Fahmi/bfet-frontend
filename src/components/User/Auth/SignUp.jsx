@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { validationSchema } from "../../schema";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { validationSchema } from "../../../schema";
+import { apiInstance } from "../../../axiosInstance/Instance";
 
 function Signup() {
   const navigate = useNavigate();

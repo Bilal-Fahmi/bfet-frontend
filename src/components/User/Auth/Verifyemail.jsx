@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { apiInstance } from "../../../axiosInstance/Instance";
 
 const VerificationPage = () => {
   const location = useLocation();

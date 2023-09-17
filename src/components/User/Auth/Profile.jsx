@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { apiInstance } from "../../../axiosInstance/Instance";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Slice/UserSlice";
+import { logout } from "../../../Slice/UserSlice";
 import jwtDecode from "jwt-decode";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Image,Button} from "@nextui-org/react";
 

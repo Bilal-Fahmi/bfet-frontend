@@ -7,7 +7,11 @@ import {
   Divider,
   Image,
   Textarea,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
   Button,
+  Input,
 } from "@nextui-org/react";
 import { apiInstance } from "../../axiosInstance/Instance";
 import { useNavigate } from "react-router-dom";
@@ -34,11 +38,11 @@ export default function CardUi({ name, option, description }) {
   // };
   const handleOnSlots = () => {
     try {
-      navigate("/expert-slots")
+      navigate("/expert-slots");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const handleLogout = () => {
     try {
       navigate("/login");
@@ -48,20 +52,54 @@ export default function CardUi({ name, option, description }) {
       console.log(error);
     }
   };
+  const backdrops = ["opaque"];
+  const content = (
+    <PopoverContent className="w-[240px]">
+      {(titleProps) => (
+        <div className="px-1 py-2 w-full">
+          <p className="text-small font-bold text-foreground light" {...titleProps}>
+            Change Profile image
+          </p>
+          <div className="mt-2 flex flex-col gap-2 w-full">
+           <Input type="file"/>
+          </div>
+        </div>
+      )}
+    </PopoverContent>
+  )
+
   return (
-    <Card className="mt-10 w-[500px]">
+    <Card className=" w-[500px] h-[400px]">
       <CardHeader className="flex gap-3">
-        <Image
-          alt="nextui logo"
-          height={50}
-          radius="sm"
+     
+        {backdrops.map((backdrop) => (
+        <Popover
+          key={backdrop}
+          showArrow
+          offset={10}
+          placement="bottom"
+          backdrop={backdrop}
+        >
+          <PopoverTrigger>
+            <Button  isIconOnly className="capitalize h-16 w-16">
+                <Image
+                  
+                  alt="user image"
+                  
+          // radius="sm"
           src="/public/pic/profile 2.jpg"
-          width={40}
+          // width={40}
         />
+            </Button>
+          </PopoverTrigger>
+          {content}
+        </Popover>
+      ))}
+
         <div className="flex flex-col">
           <p className="text-md medium p-1 capitalize">{name}</p>
           <p
-            className={`light rounded border text-black p-1  text-small text-default-500 ${optionColor}`}
+            className={`light rounded border text-black p-1  text-small  ${optionColor}`}
           >
             {option}
           </p>
@@ -74,14 +112,14 @@ export default function CardUi({ name, option, description }) {
         </Button>
       </CardHeader>
       <Divider />
-      <CardBody className="flex flex-row">
+      <CardBody className="flex flex-row ">
         <Textarea
           label="Description"
           variant="bordered"
           labelPlacement="outside"
           placeholder="Enter your description"
           defaultValue={description}
-          className="max-w-xs light"
+          className="max-w-xs light "
         />
         <Button
           // onClick={handleonClick}
@@ -93,15 +131,15 @@ export default function CardUi({ name, option, description }) {
         </Button>
       </CardBody>
       <Divider />
-      <CardFooter>
+      <CardFooter className="justify-between">
         <Link to="/createblog">
           <Button className="light" variant="flat">
             Create Blog
           </Button>
         </Link>
-        <Button className="light" variant="flat" onClick={handleOnSlots}>
-            Slots
-          </Button>
+        <Button className="light " variant="flat" onClick={handleOnSlots}>
+          Create Slots
+        </Button>
         {/* <Link
           isExternal
           showAnchorIcon

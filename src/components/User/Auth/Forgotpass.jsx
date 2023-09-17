@@ -3,8 +3,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { validationSchema } from "../../schema";
-import { apiInstance } from "../../axiosInstance/Instance";
+import { validationSchema } from "../../../schema";
+import { apiInstance } from "../../../axiosInstance/Instance";
 
 function Forgotpass() {
   const navigate = useNavigate();

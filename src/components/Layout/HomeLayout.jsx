@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import Header from "../User/Header";
+import Header from "../User/Headers/Header";
 import Footer from "../User/Footer";
 import Slider from "../User/Slider";
 import Cursor from "../Cursor/Cursor";
@@ -10,7 +10,7 @@ function HomeLayout() {
 
     <div className="min-h-screen flex flex-col justify-between ">
       <Toaster position="top-center" reverseOrder={false} />
-      <Header />
+      <Header/>
       <main className="flex h-screen ">
         <Slider />
         <div className="flex w-full justify-center">

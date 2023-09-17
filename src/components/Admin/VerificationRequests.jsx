@@ -93,7 +93,7 @@ function VerificationRequests() {
     },
   ];
   return (
-    <div className="light p-5">
+    <div className="semibold p-8 w-full">
       <DataTable columns={columns} data={data} />
     </div>
   );
