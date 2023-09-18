@@ -8,7 +8,6 @@ export default function Payment() {
 
   useEffect(() => {
     fetchCheckoutSession();
-    // fetchpayemnetIntent();
   }, []);
 
   const fetchCheckoutSession = async () => {
@@ -17,13 +16,11 @@ export default function Payment() {
         `/subscription-checkout-session/${decodedToken?._id}`
       );
       window.location = res.data.session.url;
-      //   if (res.data?.session.url) {
-      //     window.location = session.url;
-      //   }
     } catch (error) {
       console.log(error);
     }
   };
+
     return (
         <div>Pls wait</div>
     )
