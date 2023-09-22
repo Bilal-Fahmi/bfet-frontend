@@ -35,6 +35,7 @@ console.log(userData);
         name={userData?.name}
         option={userData?.selectedOption}
         description={userData?.description}
+        profile={userData?.profile}
       />
       
     </div>
