@@ -21,9 +21,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../Slice/UserSlice";
+import jwtDecode from "jwt-decode";
+import { toast } from "react-hot-toast";
 
 export default function CardUi({ name, option, description, profile }) {
   const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = useState("opaque");
   const [profilePic, setProfilePic] = useState("");
@@ -158,7 +161,7 @@ export default function CardUi({ name, option, description, profile }) {
             </div>
             <p className="text-md medium p-1 capitalize">{name}</p>
             <p
-              className={`light rounded border text-black p-1  text-small  ${optionColor}`}
+              className={`light rounded border text-black p-1 pl-5  text-small  ${optionColor}`}
             >
               {option}
             </p>
@@ -199,13 +202,6 @@ export default function CardUi({ name, option, description, profile }) {
           <Button className="light " variant="flat" onClick={handleOnSlots}>
             Create Slots
           </Button>
-          {/* <Link
-          isExternal
-          showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
-          >
-          Visit source code on GitHub.
-        </Link> */}
         </CardFooter>
       </Card>
     </>

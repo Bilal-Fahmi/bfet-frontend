@@ -47,8 +47,9 @@ export default function BlogPage() {
       setDate(formattedDate);
     }
   }, [createdAt]);
+  console.log(expName);
   return (
-    <div>
+    <div >
       <h1 className="text-4xl medium mt-5">{BlogData?.blog.title}</h1>
       <p className="text-default-500 light"></p>
       <div className="flex w-full justify-between">

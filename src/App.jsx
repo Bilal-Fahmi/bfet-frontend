@@ -18,7 +18,7 @@ import MeetPage from "./components/Jistsi/MeetPage";
 import AdmBlogs from "./components/Admin/admBlogs";
 
 //User
-import Login from "./components/User/Auth/Login"
+import Login from "./components/User/Auth/Login";
 import Signup from "./components/User/Auth/SignUp";
 import Profile from "./components/User/Auth/Profile";
 import Verifyemail from "./components/User/Auth/Verifyemail";
@@ -27,6 +27,7 @@ import Index from "./components/User";
 import Form from "./components/Experts/Form";
 import FitMind from "./components/User/FitMind";
 import FitBody from "./components/User/FitBody";
+import 
 import Blogs from "./components/User/Blogs/Blogs";
 import BlogPage from "./components/User/Blogs/BlogPage";
 import BookingPage from "./components/User/BookingPage";
@@ -43,6 +44,8 @@ import BodyLayout from "./components/Layout/BodyLayout";
 import Payment from "./components/User/Stripe Payment/Payment";
 import PaymentSuccess from "./components/User/Stripe Payment/PaymentSuccess";
 import PaymentCancel from "./components/User/Stripe Payment/PaymentCancel";
+import AdminLogin from "./components/Admin/AdminLogin";
+import AdminPrivateRoutes from "./utils/AdminPrivateRoutes";
 
 function App() {
   const user = useSelector(selectUser);
@@ -70,6 +73,7 @@ function App() {
               <Route path="payment" element={<Payment />} />
               <Route path="success" element={<PaymentSuccess />} />
               <Route path="cancel" element={<PaymentCancel />} />
+              <Router path="allexperts" element={<Experts />}/>
             </Route>
           </Route>
 
@@ -77,24 +81,29 @@ function App() {
             <Route path="fitmind" element={<FitMind />} />
           </Route>
 
-          <Route path='/body' element={<BodyLayout />}>
-            <Route path="fitbody" element={<FitBody />}/>
-         </Route>
+          <Route path="/body" element={<BodyLayout />}>
+            <Route path="fitbody" element={<FitBody />} />
+          </Route>
 
           {/* <Route element={<PrivateRoutes />}> */}
           <Route path="verification" element={<MeetPage />} />
           {/* </Route> */}
 
+          {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="users" element={<UsersView />} />
-            <Route path="experts" element={<Experts />} />
-            <Route path="blogs" element={<AdmBlogs/>} />
-            <Route
-              path="verification-requests"
-              element={<VerificationRequests />}
-            />
+            <Route path="" element={user ? <Dashboard /> : <AdminLogin />} />
+            <Route element={<AdminPrivateRoutes />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="users" element={<UsersView />} />
+              <Route path="experts" element={<Experts />} />
+              <Route path="blogs" element={<AdmBlogs />} />
+              <Route
+                path="verification-requests"
+                element={<VerificationRequests />}
+              />
+            </Route>
           </Route>
+
         </Routes>
       </BrowserRouter>
     </NextUIProvider>

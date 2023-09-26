@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { validationSchema } from "../../../schema";
 import { apiInstance } from "../../../axiosInstance/Instance";
+import { toast } from "react-hot-toast";
 
 function Signup() {
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem('token')) {  
-      navigate('/profile')
+    if (localStorage.getItem("token")) {
+      navigate("/profile");
     } else {
-      navigate('/signup')
+      navigate("/signup");
     }
-  },[])
+  }, []);
 
   const onSubmit = async (values, actions) => {
     try {
@@ -22,8 +23,9 @@ function Signup() {
         actions.resetForm();
         if (response.data.sucess) {
           navigate("/login");
+        } else if (response.data.error) {
+          toast.error(response.data.error);
         }
-        
       } else {
         throw new Error("Failed to connect to the backend server");
       }
@@ -52,18 +54,14 @@ function Signup() {
 
   let message;
   if (touched.name && errors?.name) {
-    message = errors.name.message
-    }
-  else if (touched.email && errors?.email) {
-    message = errors.email
-    } 
-  else if (touched.password && errors?.password) {
-    message = errors.password
-    }
-  else if (touched.confirmpassword && errors?.confirmpassword) {
-    message = errors.confirmpassword
-    }
-
+    message = errors.name.message;
+  } else if (touched.email && errors?.email) {
+    message = errors.email;
+  } else if (touched.password && errors?.password) {
+    message = errors.password;
+  } else if (touched.confirmpassword && errors?.confirmpassword) {
+    message = errors.confirmpassword;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center ">
