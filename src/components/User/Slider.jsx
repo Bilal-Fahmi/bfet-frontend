@@ -24,7 +24,7 @@ const itemVariants = {
 
 const links = [
   { name: "Home", to: "/", id: 1 },
-  { name: "Experts", to: "/experts", id: 2 },
+  { name: "Experts", to: "/allexperts", id: 2 },
   { name: "Blogs", to: "/blogs", id: 3 },
 ];
 const Slider = () => {

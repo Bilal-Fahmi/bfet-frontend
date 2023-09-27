@@ -4,15 +4,7 @@ import { apiInstance } from "../../../axiosInstance/Instance";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Slice/UserSlice";
 import jwtDecode from "jwt-decode";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+
 import {
   Card,
   CardHeader,
@@ -30,6 +22,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
+import { format,parseISO } from "date-fns";
+
 
 function Profile() {
   const dispatch = useDispatch();
@@ -87,11 +81,6 @@ function Profile() {
     }
   };
 
-  const data = [
-    { category: "not recommended", sleep: 6, water: 4, calories: 2000 },
-    { category: "recommended", sleep: 7, water: 8, calories: 2500 },
-    { category: "best", sleep: 8, water: 10, calories: 2800 },
-  ];
 
   const handleFileChange = (e) => {
     console.log("file:::", e.target.files[0]);
@@ -127,7 +116,11 @@ function Profile() {
     setBackdrop(backdrop);
     onOpen();
   };
-
+  // const formattedSlots = userData?.slots
+  // ? format(parseISO(userData?.slots), "hh:mm a")
+  // : "";
+  
+  // console.log(userData?.slots);
   {
     return (
       <>
@@ -206,11 +199,13 @@ function Profile() {
                 >
                   Logout
                 </Button>
-                {/* <p className="text-small text-default-500">nextui.org</p> */}
               </div>
             </CardHeader>
             <Divider />
-            <CardBody></CardBody>
+            <CardBody>
+              <h1 className="underline semibold text-xl">Bookings</h1>
+              {userData?.slots}
+            </CardBody>
             <Divider />
             <CardFooter className="justify-center">
               <Link to="/form" className=" light  ">
@@ -223,21 +218,6 @@ function Profile() {
               </Link>
             </CardFooter>
           </Card>
-          {/* <BarChart
-          width={600}
-          height={400}
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="category" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="sleep" fill="#8884d8" name="Sleep" />
-          <Bar dataKey="water" fill="#82ca9d" name="Water" />
-          <Bar dataKey="calories" fill="#ffc658" name="Calories" />
-        </BarChart> */}
         </div>
       </>
     );

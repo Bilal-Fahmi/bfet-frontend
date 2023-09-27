@@ -4,7 +4,6 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Link, 
   Image,
   Button,
 } from "@nextui-org/react";
@@ -12,36 +11,39 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiInstance } from "../../axiosInstance/Instance";
 import Calendar from "react-calendar";
+import { toast } from "react-hot-toast";
+import { format } from "date-fns-tz"
+import { parse } from 'date-fns'
+import jwtDecode from "jwt-decode";
+
 
 export default function BookingPage() {
-  const { id } = useParams();
+  const token = localStorage.getItem("token")
+  const decodedToken = jwtDecode(token)
+  const id = decodedToken?._id
   const [expertData, setExpertData] = useState();
   const [selectedDate, setSelectedDate] = useState({
     justDate: null,
     dateTime: null,
   });
-  const [selectedSlot, setSelectedSlot] = useState();
-  const [availableSlots, setAvailableSlots] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [isMaxSlotsReached, setIsMaxSlotsReached] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState([]);
   const [expBlogs, setExpBlogs] = useState();
   const { justDate } = selectedDate;
+  const [loadingSlots, setLoadingSlots] = useState(false); // Loading indicator state
+  const [errorSlots, setErrorSlots] = useState(null); // Error state for fetching slots
+  const [showSlots, setShowSlots] = useState(false); // Flag to show/hide slots
+
   useEffect(() => {
     fetchData();
   }, [id]);
+
   const fetchData = async () => {
     try {
       const res = await apiInstance.get(`/expert-booking/${id}`);
       const expBlog = await apiInstance.get(`/expert-blog/${id}`);
       if (res.data.expert) {
-        // Convert timestamps to user-friendly format
-        const formattedTime = res.data.expert.slots.map((time) => {
-          const date = new Date(time);
-          return date.toLocaleString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-          });
-        });
-        setAvailableSlots(formattedTime);
         setExpertData(res.data.expert);
       }
       if (expBlog.data.expBlog) {
@@ -51,23 +53,100 @@ export default function BookingPage() {
       console.log(error);
     }
   };
-  // Function to truncate text and add "..." after a certain length
+
+  const fetchSlotsForDate = async () => {
+    if (!justDate) {
+      return; // No date selected, do nothing
+    }
+
+    setLoadingSlots(true); // Show loading indicator
+    setErrorSlots(null); // Reset error state
+
+    try {
+      const response = await apiInstance.get(`/slots/${justDate}`);
+      if (response.data.slots) {
+        if (Array.isArray(response.data.slots)) {
+          const formattedTime = response.data.slots.map((time) => {
+            const date = new Date(time);
+            return date.toLocaleString("en-US", {
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            });
+          });
+          setAvailableSlots(formattedTime);
+          setShowSlots(true); // Show slots
+        } else if (response.data.slots === "No slots found") {
+          toast.error("No slots found");
+        }
+      }
+    } catch (error) {
+      setErrorSlots(error);
+    } finally {
+      setLoadingSlots(false); // Hide loading indicator
+    }
+  };
+
+  const handleConfirmSlot = async () => {
+    // if (!selectedSlot) {
+    //   toast.error("Slots not selected")
+    //   return;
+    // }
+
+    try { 
+      console.log(selectedSlot);
+      
+ 
+      const timeString = "1:40 PM";
+const timeZone = "UTC"; // Replace with the desired time zone
+
+// Parse the time string into a Date object
+const parsedTime = parse(timeString, "h:mm a", new Date(), { timeZone });
+
+// Format the Date object as needed
+const formattedTime = format(parsedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { timeZone });
+
+console.log(formattedTime);
+
+
+      const response = await apiInstance.post("/confirm-slot", {
+        slot: formattedTime,
+        userId: id,
+      });
+      if (response.data.success) {
+        toast.success(response.data.success);
+      } else {
+        toast.error("Failed to confirm slot");
+      }
+    } catch (error) {
+      toast.error("Error confirming slot");
+      console.error(error);
+    }
+
+    // Reset selectedSlot
+    setSelectedSlot(null);
+  };
+
   const turncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
     }
     return text.substring(0, maxLength) + "...";
   };
+
+  const isSlotSelected = (slot) => {
+    return slot === selectedSlot; // Check if the slot is selected
+  };
+
   return (
     <div className="w-full">
-      <Card className="mx-auto w-[400px] h-[300px] mt-5">
+      <Card className="mx-auto w-[400px] h-[430px] mt-5">
         <CardHeader className="flex gap-3">
           <Image
             alt="nextui logo"
-            height={40}
+            className="w-20"
             radius="sm"
-            src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-            width={40}
+            src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${expertData?.profile}`}
           />
           <div className="flex flex-col">
             <p className="text-md">{expertData?.name}</p>
@@ -77,30 +156,72 @@ export default function BookingPage() {
           </div>
         </CardHeader>
         <Divider />
+
         <CardBody>
-          {/* <p>{ expertData?.expert.slots}</p> */}
-          {availableSlots?.length > 0 ? (
+          {!showSlots && (
+            <div>
+              <h1 className="semibold mb-5">Select a Date</h1>
+              <Calendar
+                minDate={new Date()}
+                view="month"
+                className="light"
+                onChange={(date) =>
+                  setSelectedDate({ ...selectedDate, justDate: date })
+                }
+              />
+            </div>
+          )}
+          {showSlots && justDate && (
             <div>
               <h1 className="semibold mb-5">Select a Slot</h1>
               <ul className="grid grid-cols-4 gap-2">
-                {availableSlots.map((slot, index) => (
+                {availableSlots?.map((slot, index) => (
                   <li key={index}>
-                    <Button variant="flat" className="light">
+                    <Button
+                      variant="flat"
+                      className={`light ${
+                        isSlotSelected(slot)
+                          ? "bg-[#FF793B] bg-opacity-70 text-white"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedSlot(slot);
+                      }}
+                    >
                       {slot}
                     </Button>
                   </li>
                 ))}
               </ul>
             </div>
-          ) : (
-            <Calendar minDate={new Date()} view="month" className="light" />
           )}
         </CardBody>
+
         <Divider />
-        <CardFooter></CardFooter>
+        <CardFooter className="justify-between">
+
+            <Button
+              onClick={fetchSlotsForDate}
+              disabled={!justDate || loadingSlots}
+              className="text-white bg-black light"
+            >
+              Check Slots
+            </Button>
+     
+          <Button
+            onClick={handleConfirmSlot}
+            isDisabled={!selectedSlot}
+            className={`text-white bg-black light ${
+              selectedSlot ? "bg-green-500" : ""
+            }`}
+          >
+            Confirm
+          </Button>
+        </CardFooter>
       </Card>
       <div className="mt-6 pl-5">
-        <h1 className="semibold text-xl  mb-2">Blogs by {expertData?.name}</h1>
+        <h1 className="semibold text-xl mb-2">Blogs by {expertData?.name}</h1>
+        {/* blog content */}
         <Card
           className="w-[250px]"
           shadow="sm"
@@ -114,15 +235,13 @@ export default function BookingPage() {
               radius="lg"
               width="100%"
               className="w-full object-cover h-[140px]"
-              src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                expBlogs?.coverImg
-              }`}
+              src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${expBlogs?.coverImg}`}
             />
           </CardBody>
           <CardFooter className="text-small justify-between">
             <b className="semibold">{expBlogs?.title}</b>
           </CardFooter>
-          <CardFooter className="text-small justify-between ">
+          <CardFooter className="text-small justify-between">
             <b className="light">
               {expBlogs && turncateText(expBlogs?.summary, 100)}
             </b>

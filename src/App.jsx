@@ -27,7 +27,7 @@ import Index from "./components/User";
 import Form from "./components/Experts/Form";
 import FitMind from "./components/User/FitMind";
 import FitBody from "./components/User/FitBody";
-import 
+import AllExperts from "./components/User/AllExperts";
 import Blogs from "./components/User/Blogs/Blogs";
 import BlogPage from "./components/User/Blogs/BlogPage";
 import BookingPage from "./components/User/BookingPage";
@@ -73,7 +73,7 @@ function App() {
               <Route path="payment" element={<Payment />} />
               <Route path="success" element={<PaymentSuccess />} />
               <Route path="cancel" element={<PaymentCancel />} />
-              <Router path="allexperts" element={<Experts />}/>
+              <Route path="allexperts" element={<AllExperts />} />
             </Route>
           </Route>
 
@@ -103,7 +103,6 @@ function App() {
               />
             </Route>
           </Route>
-
         </Routes>
       </BrowserRouter>
     </NextUIProvider>

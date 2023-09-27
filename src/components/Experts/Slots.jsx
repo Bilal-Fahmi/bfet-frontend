@@ -84,9 +84,10 @@ export default function Slots() {
   };
 
   return (
-    <div>
+    <div className="p-5">
       {selectedDate.justDate ? (
         <div className="light flex gap-2">
+          <h1 className="semibold text-xl pr-4 underline">Select a Time</h1>
           {times?.map((time, i) => (
             <div key={`time-${i}`}>
               <Button
@@ -115,6 +116,8 @@ export default function Slots() {
           </Button>
         </div>
       ) : (
+          <div>
+            <h1 className="semibold text-xl pb-3 underline">Select a Date</h1>
         <Calendar
           minDate={new Date()}
           view="month"
@@ -122,7 +125,8 @@ export default function Slots() {
           onClickDay={(date) =>
             setSelectedDate((prev) => ({ ...prev, justDate: date }))
           }
-        />
+            />
+            </div>
       )}
     </div>
   );

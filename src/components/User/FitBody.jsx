@@ -40,7 +40,9 @@ export default function FitBody() {
         <br /> Expert.
       </h1>
       {expertData.map((expert, index) => (
-        <div key={index}>
+        <div
+          className="pl-5"
+          key={index}>
           <Card
             isFooterBlurred
             className="w-full h-[200px] col-span-12 sm:col-span-5 "
