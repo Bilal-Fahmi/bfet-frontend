@@ -100,10 +100,7 @@ export default function AdmBlogs() {
                 // src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
                 //   blog?.coverImg
                 // }`}
-                src={
-                  import.meta.env.VITE_REACT_APP_bdId +
-                  `/uploads/${blog?.coverImg}`
-                }
+                src={import.meta.env.VITE_REACT_APP_bdId +`/uploads/${blog?.coverImg}`}
               />
             </CardBody>
             <CardFooter className="grid ">
