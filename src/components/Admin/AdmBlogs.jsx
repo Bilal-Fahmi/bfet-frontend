@@ -95,9 +95,13 @@ export default function AdmBlogs() {
                 radius="lg"
                 width="100%"
                 className="w-full object-cover h-[140px]"
-                src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                  blog?.coverImg
-                }`}
+                // src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
+                //   blog?.coverImg
+                // }`}
+                src={
+                  import.meta.env.VITE_REACT_APP_bdId +
+                  `/uploads/${blog?.coverImg}`
+                }
               />
             </CardBody>
             <CardFooter className="grid ">
@@ -110,7 +114,6 @@ export default function AdmBlogs() {
                 </p>
                 {blog.isBlock === false ? (
                   <Button
-                    
                     className="light text-white bg-red-600 "
                     onPress={onOpen}
                   >
@@ -166,8 +169,10 @@ export default function AdmBlogs() {
                 </Modal>
               </div>
             </CardFooter>
-            <CardFooter className="p-1 justify-end" >
-            <h1 className="pr-3 light text-small text-slate-400 ">by {expName[index]}</h1>
+            <CardFooter className="p-1 justify-end">
+              <h1 className="pr-3 light text-small text-slate-400 ">
+                by {expName[index]}
+              </h1>
             </CardFooter>
           </Card>
         ))}
