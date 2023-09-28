@@ -41,9 +41,9 @@ import Slots from "./components/Experts/Slots";
 import HomeLayout from "./components/Layout/HomeLayout";
 import MindLayout from "./components/Layout/MindLayout";
 import BodyLayout from "./components/Layout/BodyLayout";
-import Payment from "./components/User/Stripe Payment/Payment";
-import PaymentSuccess from "./components/User/Stripe Payment/PaymentSuccess";
-import PaymentCancel from "./components/User/Stripe Payment/PaymentCancel";
+import Payment from "./components/Stripe Payment/Payment";
+import PaymentSuccess from "./components/Stripe Payment/PaymentSuccess";
+import PaymentCancel from "./components/Stripe Payment/PaymentCancel";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminPrivateRoutes from "./utils/AdminPrivateRoutes";
 
