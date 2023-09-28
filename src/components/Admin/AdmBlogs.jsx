@@ -76,6 +76,8 @@ export default function AdmBlogs() {
       console.log(error);
     }
   };
+  const meta = (import.meta.env.VITE_REACT_APP_bdId);
+  console.log(meta);
   return (
     <div className="flex flex-row mr-auto p-10">
       <h1 className="extrabold pr-10 text-2xl">Blogs.</h1>
