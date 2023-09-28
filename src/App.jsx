@@ -23,7 +23,7 @@ import Signup from "./components/User/Auth/SignUp";
 import Profile from "./components/User/Auth/Profile";
 import Verifyemail from "./components/User/Auth/Verifyemail";
 import Forgotpass from "./components/User/Auth/Forgotpass";
-import Index from "./components/User";
+import Index from "./components/User/Index";
 import Form from "./components/Experts/Form";
 import FitMind from "./components/User/FitMind";
 import FitBody from "./components/User/FitBody";
