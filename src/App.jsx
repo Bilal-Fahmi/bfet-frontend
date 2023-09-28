@@ -15,7 +15,7 @@ import UsersView from "./components/Admin/Users-view";
 import Experts from "./components/Admin/Experts";
 import VerificationRequests from "./components/Admin/VerificationRequests";
 import MeetPage from "./components/Jistsi/MeetPage";
-import AdmBlogs from "./components/Admin/admBlogs";
+import AdmBlogs from "./components/Admin/AdmBlogs";
 
 //User
 import Login from "./components/User/Auth/Login";
