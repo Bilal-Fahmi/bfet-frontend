@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiInstance } from "../../../axiosInstance/Instance";
+import { apiInstance } from "../src/axiosInstance/Instance";
 import jwtDecode from "jwt-decode";
 
 export default function Payment() {
