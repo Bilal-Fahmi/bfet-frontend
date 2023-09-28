@@ -76,7 +76,7 @@ export default function AdmBlogs() {
       console.log(error);
     }
   };
-  const meta = (import.meta.env.VITE_REACT_APP_bdId);
+  const meta = import.meta.env.VITE_REACT_APP_bdId;
   console.log(meta);
   return (
     <div className="flex flex-row mr-auto p-10">
@@ -97,7 +97,11 @@ export default function AdmBlogs() {
                 radius="lg"
                 width="100%"
                 className="w-full object-cover h-[140px]"
-                src={`${import.meta.env.VITE_REACT_APP_bdId+"/uploads/"+blog?.coverImg}`}
+                src={`${
+                  import.meta.env.VITE_REACT_APP_bdId +
+                  "/uploads/" +
+                  blog?.coverImg
+                }`}
                 // src={import.meta.env.VITE_REACT_APP_bdId +`/uploads/${blog?.coverImg}`}
               />
             </CardBody>
