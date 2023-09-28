@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
-import { apiInstance } from "../../../axiosInstance/Instance";
+import { apiInstance } from "../../axiosInstance/Instance";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
