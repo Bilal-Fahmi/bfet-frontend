@@ -97,10 +97,8 @@ export default function AdmBlogs() {
                 radius="lg"
                 width="100%"
                 className="w-full object-cover h-[140px]"
-                // src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                //   blog?.coverImg
-                // }`}
-                src={import.meta.env.VITE_REACT_APP_bdId +`/uploads/${blog?.coverImg}`}
+                src={`${import.meta.env.VITE_REACT_APP_bdId+"/uploads/"+blog?.coverImg}`}
+                // src={import.meta.env.VITE_REACT_APP_bdId +`/uploads/${blog?.coverImg}`}
               />
             </CardBody>
             <CardFooter className="grid ">
