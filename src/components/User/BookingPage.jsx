@@ -146,7 +146,7 @@ console.log(formattedTime);
             alt="nextui logo"
             className="w-20"
             radius="sm"
-            src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${expertData?.profile}`}
+            src={expertData?.profile}
           />
           <div className="flex flex-col">
             <p className="text-md">{expertData?.name}</p>
