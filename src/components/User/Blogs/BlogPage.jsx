@@ -57,9 +57,7 @@ export default function BlogPage() {
         <p className="light ">{date }</p>
       </div>
       <Image
-        src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-          BlogData?.blog.coverImg
-        }`}
+        src={BlogData?.blog.coverImg}
         width={650}
         className="mt-5 mb-5"
       />

@@ -49,23 +49,30 @@ export default function CreateBlog() {
     "link",
     "image",
   ];
+  const convertBase64 = (file) => {
+    console.log(file);
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   const handleOnSubmit = async (e) => {
     try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("summary", summary);
-      formData.append("files", files[0]);
-      formData.append("content", content);
+      const base64 = await convertBase64(files);
       e.preventDefault();
-      const res = await apiInstance.post(
-        `/createBlog/${decodedToken?._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await apiInstance.post(`/createBlog/${decodedToken?._id}`, {
+        title,
+        content,
+        summary,
+        image: base64,
+      });
 
       if (res.data?.success) {
         toast.success(res.data.success);
@@ -107,7 +114,7 @@ export default function CreateBlog() {
               <Input
                 type="file"
                 className="light"
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={(e) => setFiles(e.target.files[0])}
               />
             </div>
           </CardHeader>

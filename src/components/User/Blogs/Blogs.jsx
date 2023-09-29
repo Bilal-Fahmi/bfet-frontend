@@ -75,9 +75,7 @@ export default function Blogs() {
                 width="100%"
                 alt={blog.title}
                 className="w-full object-cover h-[140px]"
-                src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                  blog?.coverImg
-                }`}
+                src={blog?.coverImg}
               />
             </CardBody>
             <CardFooter className="text-small medium justify-between">

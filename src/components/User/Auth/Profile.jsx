@@ -22,8 +22,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
-import { format,parseISO } from "date-fns";
-
+import { format, parseISO } from "date-fns";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ function Profile() {
   const decodedToken = jwtDecode(token);
   const user = useSelector((state) => state.user.user);
   const [userData, setUserData] = useState();
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = useState("opaque");
 
@@ -81,36 +80,6 @@ function Profile() {
     }
   };
 
-
-  const handleFileChange = (e) => {
-    console.log("file:::", e.target.files[0]);
-    setProfilePic(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
-    try {
-      console.log("clickedd");
-      const formData = new FormData();
-      formData.append("profilePic", profilePic);
-      e.preventDefault();
-      const res = await apiInstance.post(
-        `/profilePic/${decodedToken?._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      if (res.data?.success) {
-        toast.success(res.data.success);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setProfilePic("");
-  };
-
   const backdrops = ["opaque"];
   const handleOpen = (backdrop) => {
     setBackdrop(backdrop);
@@ -119,8 +88,40 @@ function Profile() {
   // const formattedSlots = userData?.slots
   // ? format(parseISO(userData?.slots), "hh:mm a")
   // : "";
-  
+
   // console.log(userData?.slots);
+  const convertBase64 = (file) => {
+    console.log(file);
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const uploadImage = async (event) => {
+    try {
+      event.preventDefault();
+      const base64 = await convertBase64(profilePic);
+      const res = await apiInstance.post(`/uploadImage/${decodedToken?._id}`, { image: base64 });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const url = URL.createObjectURL(file)
+    console.log(url);
+    setProfilePic(file)
+    setUserData(prev => ({...prev, profile: url}))
+}
   {
     return (
       <>
@@ -130,7 +131,7 @@ function Profile() {
           onClose={onClose}
           className="light"
         >
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={uploadImage}>
             <ModalContent>
               <>
                 <ModalHeader className="flex flex-col gap-1">
@@ -141,7 +142,8 @@ function Profile() {
                     <Input
                       type="file"
                       accept=".jpeg, .png, .jpg"
-                      onChange={handleFileChange}
+                      onChange={handleImageChange}
+                      
                     />
                   </div>
                 </ModalBody>
@@ -173,16 +175,13 @@ function Profile() {
                     {userData?.profile ? (
                       <Image
                         alt="user image"
-                        src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                          userData?.profile
-                        }`}
+                        src={ userData.profile}
                       />
-                      
                     ) : (
-                        <Image
-                          alt="default user image"
-                          src="/public/pic/profilePicDefault.jpg"
-                        />
+                      <Image
+                        alt="default user image"
+                        src="/public/pic/profilePicDefault.jpg"
+                      />
                     )}
                   </Button>
                 ))}

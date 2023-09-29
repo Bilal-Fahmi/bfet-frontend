@@ -55,9 +55,7 @@ export default function AllExperts() {
               removeWrapper
               alt="Card example background"
               className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
-              src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${
-                expert.profile
-              }`}
+              src={expert.profile}
             />
             <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
               <div>
