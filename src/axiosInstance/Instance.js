@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiInstance = axios.create({
-  baseURL: import.meta.env.VITE_REACT_APP_bdId,
+  baseURL: "https://bfet-server.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
