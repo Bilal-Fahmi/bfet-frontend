@@ -146,10 +146,8 @@ export default function CardUi({ name, option, description, profile }) {
                   {profile ? (
                     <Image
                       alt="user image"
-                      // src={`${
-                      //   import.meta.env.VITE_REACT_APP_bdId
-                      // }/uploads/${profile}`}
-                      src={import.meta.env.VITE_REACT_APP_bdId + `/uploads/${profile}`}
+                 
+                      src={profile}
 
                     />
                   ) : (
