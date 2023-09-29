@@ -235,7 +235,7 @@ console.log(formattedTime);
               radius="lg"
               width="100%"
               className="w-full object-cover h-[140px]"
-              src={`${import.meta.env.VITE_REACT_APP_bdId}/uploads/${expBlogs?.coverImg}`}
+              src={expBlogs?.coverImg}
             />
           </CardBody>
           <CardFooter className="text-small justify-between">

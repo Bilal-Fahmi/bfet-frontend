@@ -65,8 +65,8 @@ export default function CreateBlog() {
 
   const handleOnSubmit = async (e) => {
     try {
-      const base64 = await convertBase64(files);
       e.preventDefault();
+      const base64 = await convertBase64(files);
       const res = await apiInstance.post(`/createBlog/${decodedToken?._id}`, {
         title,
         content,
