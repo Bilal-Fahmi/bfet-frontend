@@ -26,6 +26,7 @@ const links = [
   { name: "Home", to: "/", id: 1 },
   { name: "Experts", to: "/allexperts", id: 2 },
   { name: "Blogs", to: "/blogs", id: 3 },
+  { name: "Login", to: "/login", id: 4 },
 ];
 const Slider = () => {
   const [open, cycleOpen] = useCycle(false, true);

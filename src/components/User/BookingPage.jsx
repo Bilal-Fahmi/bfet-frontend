@@ -20,7 +20,8 @@ import jwtDecode from "jwt-decode";
 export default function BookingPage() {
   const token = localStorage.getItem("token")
   const decodedToken = jwtDecode(token)
-  const id = decodedToken?._id
+  const UserId = decodedToken?._id
+  const {id} = useParams()
   const [expertData, setExpertData] = useState();
   const [selectedDate, setSelectedDate] = useState({
     justDate: null,
@@ -111,7 +112,7 @@ console.log(formattedTime);
 
       const response = await apiInstance.post("/confirm-slot", {
         slot: formattedTime,
-        userId: id,
+        userId: UserId,
       });
       if (response.data.success) {
         toast.success(response.data.success);
@@ -219,35 +220,37 @@ console.log(formattedTime);
           </Button>
         </CardFooter>
       </Card>
-      <div className="mt-6 pl-5">
-        <h1 className="semibold text-xl mb-2">Blogs by {expertData?.name}</h1>
-        {/* blog content */}
-        <Card
-          className="w-[250px]"
-          shadow="sm"
-          isPressable
-          onPress={() => console.log("item pressed")}
-        >
-          <CardBody className="overflow-visible p-0">
-            <Image
-              isZoomed
-              shadow="sm"
-              radius="lg"
-              width="100%"
-              className="w-full object-cover h-[140px]"
-              src={expBlogs?.coverImg}
-            />
-          </CardBody>
-          <CardFooter className="text-small justify-between">
-            <b className="semibold">{expBlogs?.title}</b>
-          </CardFooter>
-          <CardFooter className="text-small justify-between">
-            <b className="light">
-              {expBlogs && turncateText(expBlogs?.summary, 100)}
-            </b>
-          </CardFooter>
-        </Card>
-      </div>
+      {expBlogs &&
+        <div className="mt-6 pl-5">
+          <h1 className="semibold text-xl mb-2">Blogs by {expertData?.name}</h1>
+          {/* blog content */}
+          <Card
+            className="w-[250px]"
+            shadow="sm"
+            isPressable
+            onPress={() => console.log("item pressed")}
+          >
+            <CardBody className="overflow-visible p-0">
+              <Image
+                isZoomed
+                shadow="sm"
+                radius="lg"
+                width="100%"
+                className="w-full object-cover h-[140px]"
+                src={expBlogs?.coverImg}
+              />
+            </CardBody>
+            <CardFooter className="text-small justify-between">
+              <b className="semibold">{expBlogs?.title}</b>
+            </CardFooter>
+            <CardFooter className="text-small justify-between">
+              <b className="light">
+                {expBlogs && turncateText(expBlogs?.summary, 100)}
+              </b>
+            </CardFooter>
+          </Card>
+        </div>
+      }
     </div>
   );
 }

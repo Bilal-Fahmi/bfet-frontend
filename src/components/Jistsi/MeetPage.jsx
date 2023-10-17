@@ -2,13 +2,14 @@ import {JitsiMeeting,JaaSMeeting} from "@jitsi/react-sdk"
 import { useEffect } from "react"
 
 
+
 function MeetPage() {
- 
+const {VITE_REACT_APP_JITSI_ID} = import.meta.env 
     return (
         <div >
            
            <JaaSMeeting
-    appId = "vpaas-magic-cookie-5814ee87e8c248b5b1800add388455d3"
+    appId = {VITE_REACT_APP_JITSI_ID}
     roomName = "b`fet KYC"
     // jwt = { YOUR_VALID_JWT }
     configOverwrite = {{

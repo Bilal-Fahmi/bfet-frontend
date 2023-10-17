@@ -18,11 +18,11 @@ function Signup() {
   const onSubmit = async (values, actions) => {
     try {
       const response = await apiInstance.post("/signup", values);
-      if (response.status === 200) {
+      if (response) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         actions.resetForm();
-        if (response.data.sucess) {
-          navigate("/login");
+        if (response.data.success) {
+          toast.success(response.data.success)
         } else if (response.data.error) {
           toast.error(response.data.error);
         }

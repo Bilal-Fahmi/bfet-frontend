@@ -59,9 +59,10 @@ function App() {
             <Route path="" element={<Index />}></Route>
             <Route path="login" element={user ? <Index /> : <Login />} />
             <Route path="signup" element={<Signup />} />
+              <Route path="verify-email" element={<Verifyemail />} />
+              <Route path="allexperts" element={<AllExperts />} />
             <Route element={<PrivateRoutes />}>
               <Route path="profile" element={<Profile />} />
-              <Route path="verify-email" element={<Verifyemail />} />
               <Route path="forgotpass" element={<Forgotpass />} />
               <Route path="form" element={<Form />} />
               <Route path="expert-dashboard" element={<ExpertDash />} />
@@ -73,7 +74,6 @@ function App() {
               <Route path="payment" element={<Payment />} />
               <Route path="success" element={<PaymentSuccess />} />
               <Route path="cancel" element={<PaymentCancel />} />
-              <Route path="allexperts" element={<AllExperts />} />
             </Route>
           </Route>
 
