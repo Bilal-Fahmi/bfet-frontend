@@ -26,7 +26,7 @@ import { toast } from "react-hot-toast";
 
 export default function CardUi({ name, option, description, profile }) {
   const token = localStorage.getItem("token");
-  const decodedToken = jwtDecode(token)
+  const decodedToken = jwtDecode(token);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = useState("opaque");
   const [profilePic, setProfilePic] = useState("");
@@ -144,12 +144,7 @@ export default function CardUi({ name, option, description, profile }) {
                   className="w-20 h-20"
                 >
                   {profile ? (
-                    <Image
-                      alt="user image"
-                 
-                      src={profile}
-
-                    />
+                    <Image alt="user image" src={profile} />
                   ) : (
                     <Image
                       alt="default user image"
@@ -158,20 +153,21 @@ export default function CardUi({ name, option, description, profile }) {
                   )}
                 </Button>
               ))}
-            </div>
-            <p className="text-md medium p-1 capitalize">{name}</p>
+            <p className="text-md medium p capitalize">{name}</p>
             <p
-              className={`light rounded border text-black p-1 pl-5  text-small  ${optionColor}`}
+              className={`light rounded border text-black p-1  text-small  ${optionColor}`}
             >
               {option}
             </p>
+            </div>
+          
           </div>
           <Button
             onClick={handleLogout}
             className="ml-64 light bg-black text-white"
           >
             Logout
-          </Button>
+            </Button>
         </CardHeader>
         <Divider />
         <CardBody className="flex flex-row ">

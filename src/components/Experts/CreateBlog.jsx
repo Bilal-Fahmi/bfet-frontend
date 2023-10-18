@@ -114,6 +114,7 @@ export default function CreateBlog() {
               <Input
                 type="file"
                 className="light"
+                accept=".jpeg, .png, .jpg"
                 onChange={(e) => setFiles(e.target.files[0])}
               />
             </div>

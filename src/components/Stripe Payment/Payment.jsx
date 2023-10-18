@@ -22,6 +22,6 @@ export default function Payment() {
   };
 
     return (
-        <div>Pls wait</div>
+        <div className="text-3xl extrabold flex justify-center flex-col">Please wait ...</div>
     )
 }

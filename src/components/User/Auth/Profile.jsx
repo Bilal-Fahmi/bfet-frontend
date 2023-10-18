@@ -188,16 +188,11 @@ function Profile() {
               </div>
 
               <div className="flex flex-row">
-                <p className=" pt-8 semibold text-xl light capitalize">
+                <p className=" pt-8 pl-2 semibold text-xl light capitalize">
                   {userData?.name}
                 </p>
 
-                <Button
-                  onClick={handlelogout}
-                  className="ml-64 light mt-6 bg-black text-white"
-                >
-                  Logout
-                </Button>
+             
               </div>
             </CardHeader>
             <Divider />
@@ -206,15 +201,21 @@ function Profile() {
               {userData?.slots}
             </CardBody>
             <Divider />
-            <CardFooter className="justify-center">
+            <CardFooter className="justify-between">
               <Link to="/form" className=" light  ">
                 <Button
                   variant="flat"
-                  className=" bg-black text-white px-4 py-2 rounded"
+                  className=" bg-black text-white "
                 >
                   Become an Expert
                 </Button>
               </Link>
+              <Button
+                  onClick={handlelogout}
+                  className=" light bg-black text-white"
+                >
+                  Logout
+                </Button>
             </CardFooter>
           </Card>
         </div>

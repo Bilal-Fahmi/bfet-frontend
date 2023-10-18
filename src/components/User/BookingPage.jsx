@@ -12,16 +12,15 @@ import { useParams } from "react-router-dom";
 import { apiInstance } from "../../axiosInstance/Instance";
 import Calendar from "react-calendar";
 import { toast } from "react-hot-toast";
-import { format } from "date-fns-tz"
-import { parse } from 'date-fns'
+import { format } from "date-fns-tz";
+import { parse } from "date-fns";
 import jwtDecode from "jwt-decode";
 
-
 export default function BookingPage() {
-  const token = localStorage.getItem("token")
-  const decodedToken = jwtDecode(token)
-  const UserId = decodedToken?._id
-  const {id} = useParams()
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+  const UserId = decodedToken?._id;
+  const { id } = useParams();
   const [expertData, setExpertData] = useState();
   const [selectedDate, setSelectedDate] = useState({
     justDate: null,
@@ -94,21 +93,21 @@ export default function BookingPage() {
     //   return;
     // }
 
-    try { 
+    try {
       console.log(selectedSlot);
-      
- 
+
       const timeString = "1:40 PM";
-const timeZone = "UTC"; // Replace with the desired time zone
+      const timeZone = "UTC"; // Replace with the desired time zone
 
-// Parse the time string into a Date object
-const parsedTime = parse(timeString, "h:mm a", new Date(), { timeZone });
+      // Parse the time string into a Date object
+      const parsedTime = parse(timeString, "h:mm a", new Date(), { timeZone });
 
-// Format the Date object as needed
-const formattedTime = format(parsedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { timeZone });
+      // Format the Date object as needed
+      const formattedTime = format(parsedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", {
+        timeZone,
+      });
 
-console.log(formattedTime);
-
+      console.log(formattedTime);
 
       const response = await apiInstance.post("/confirm-slot", {
         slot: formattedTime,
@@ -150,11 +149,18 @@ console.log(formattedTime);
             src={expertData?.profile}
           />
           <div className="flex flex-col">
-            <p className="text-md">{expertData?.name}</p>
-            <p className="text-small text-default-500">
+            <p className="text-md p-1 medium capitalize">{expertData?.name}</p>
+            <p
+              className={`light rounded border text-black p-1  text-sm ${
+                expertData?.selectedOption === "Mind"
+                  ? "bg-[#5AA17F] bg-opacity-20"
+                  : "bg-[#FF793B] bg-opacity-20"
+              }`}
+            >
               {expertData?.selectedOption}
             </p>
           </div>
+          <p className="semibold text-lg pl-24 ">Book a Slot.</p>
         </CardHeader>
         <Divider />
 
@@ -200,15 +206,14 @@ console.log(formattedTime);
 
         <Divider />
         <CardFooter className="justify-between">
+          <Button
+            onClick={fetchSlotsForDate}
+            disabled={!justDate || loadingSlots}
+            className="text-white bg-black light"
+          >
+            Check Slots
+          </Button>
 
-            <Button
-              onClick={fetchSlotsForDate}
-              disabled={!justDate || loadingSlots}
-              className="text-white bg-black light"
-            >
-              Check Slots
-            </Button>
-     
           <Button
             onClick={handleConfirmSlot}
             isDisabled={!selectedSlot}
@@ -220,7 +225,7 @@ console.log(formattedTime);
           </Button>
         </CardFooter>
       </Card>
-      {expBlogs &&
+      {expBlogs && (
         <div className="mt-6 pl-5">
           <h1 className="semibold text-xl mb-2">Blogs by {expertData?.name}</h1>
           {/* blog content */}
@@ -250,7 +255,7 @@ console.log(formattedTime);
             </CardFooter>
           </Card>
         </div>
-      }
+      )}
     </div>
   );
 }
