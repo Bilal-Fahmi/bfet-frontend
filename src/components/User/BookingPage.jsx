@@ -61,19 +61,26 @@ export default function BookingPage() {
 
     setLoadingSlots(true); // Show loading indicator
     setErrorSlots(null); // Reset error state
-
     try {
-      const response = await apiInstance.get(`/slots/${justDate}`);
+      const response = await apiInstance.get(`/slots`, {
+        params: {
+          key1: justDate,
+          key2: id,
+        },
+      });
+      console.log(response);
       if (response.data.slots) {
+        console.log(response.data.slots);
         if (Array.isArray(response.data.slots)) {
-          const formattedTime = response.data.slots.map((time) => {
-            const date = new Date(time);
+          const formattedTime = response.data.slots.map((slot) => {
+            const date = new Date(slot);
             return date.toLocaleString("en-US", {
               hour: "numeric",
               minute: "numeric",
               hour12: true,
             });
           });
+          console.log(formattedTime);
           setAvailableSlots(formattedTime);
           setShowSlots(true); // Show slots
         } else if (response.data.slots === "No slots found") {
@@ -96,8 +103,8 @@ export default function BookingPage() {
     try {
       console.log(selectedSlot);
 
-      const timeString = "1:40 PM";
-      const timeZone = "UTC"; // Replace with the desired time zone
+      const timeString = selectedSlot;
+      const timeZone = "UTC"; 
 
       // Parse the time string into a Date object
       const parsedTime = parse(timeString, "h:mm a", new Date(), { timeZone });
