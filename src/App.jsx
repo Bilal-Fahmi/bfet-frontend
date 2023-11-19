@@ -59,16 +59,16 @@ function App() {
             <Route path="" element={<Index />}></Route>
             <Route path="login" element={user ? <Index /> : <Login />} />
             <Route path="signup" element={<Signup />} />
-              <Route path="verify-email" element={<Verifyemail />} />
-              <Route path="allexperts" element={<AllExperts />} />
+            <Route path="verify-email" element={<Verifyemail />} />
+            <Route path="allexperts" element={<AllExperts />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="blog/:id" element={<BlogPage />} />
             <Route element={<PrivateRoutes />}>
               <Route path="profile" element={<Profile />} />
               <Route path="forgotpass" element={<Forgotpass />} />
               <Route path="form" element={<Form />} />
               <Route path="expert-dashboard" element={<ExpertDash />} />
               <Route path="createblog" element={<CreateBlog />} />
-              <Route path="blogs" element={<Blogs />} />
-              <Route path="blog/:id" element={<BlogPage />} />
               <Route path="expert-slots" element={<Slots />} />
               <Route path="booking-page/:id" element={<BookingPage />} />
               <Route path="payment" element={<Payment />} />
