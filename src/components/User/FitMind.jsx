@@ -53,7 +53,8 @@ export default function FitMind() {
                 {expert.name}
               </h4>
             </CardHeader>
-            <Image
+            <Image 
+              
               removeWrapper
               alt="Card example background"
               className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
