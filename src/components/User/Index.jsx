@@ -40,7 +40,6 @@ function Index() {
         blogs.map(async (blog) => {
           const author = await apiInstance.get(`/expert-name/${blog.author}`);
           if (author.data?.expert.name) {
-            console.log(author.data.expert.name);
             return author.data.expert.name;
           }
         })
