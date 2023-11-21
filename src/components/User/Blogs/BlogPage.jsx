@@ -49,11 +49,11 @@ export default function BlogPage() {
   }, [createdAt]);
   console.log(expName);
   return (
-    <div >
+    <div className="flex flex-col align items-center pr-6 pl-6" >
       <h1 className="text-4xl medium mt-5">{BlogData?.blog.title}</h1>
       <p className="text-default-500 light"></p>
-      <div className="flex w-full justify-between">
-        <p className="light ">{`by ${expName?.name}`}</p>
+      <div className="flex justify-between">
+        <p className="light pr-10 ">{`by ${expName?.name}`}</p>
         <p className="light ">{date }</p>
       </div>
       <Image
@@ -62,7 +62,7 @@ export default function BlogPage() {
         className="mt-5 mb-5"
       />
       <div
-        className="light text-xl mt-4"
+        className=" light text-xl mt-4"
         dangerouslySetInnerHTML={{ __html: BlogData?.blog.content }}
       ></div>
     </div>

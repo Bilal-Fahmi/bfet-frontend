@@ -40,7 +40,8 @@ function Index() {
         blogs.map(async (blog) => {
           const author = await apiInstance.get(`/expert-name/${blog.author}`);
           if (author.data?.expert.name) {
-            return author.data?.expert.name;
+            console.log(author.data.expert.name);
+            return author.data.expert.name;
           }
         })
       );
@@ -96,7 +97,7 @@ function Index() {
           Fit Body
         </Link>
       </div>
-          {blogs && (
+          {blogs && expName &&(
               <div className="p-5 pl-10">
                   <h1 className=" pb-3 extrabold text-2xl">Blogs.</h1>
                   <div className="flex flex-wrap gap-2 sm:gap-2 md:gap-5 lg:gap-14">
@@ -132,7 +133,7 @@ function Index() {
                               </CardFooter>
                               <CardFooter className="justify-end">
                                   <p className="  light text-small text-slate-400">
-                                      by {expName[index]}
+                                      by { expName[index]}
                                   </p>
                               </CardFooter>
                           </Card>
